@@ -32,6 +32,6 @@ flutter:
 
     - family: Pokemon
       fonts:
-        # - asset: lib/assets/fonts/Pokemon Hollow.ttf
-        - asset: lib/assets/fonts/Pokemon Solid.ttf
+        - asset: lib/assets/fonts/Pokemon Hollow.ttf
+        # - asset: lib/assets/fonts/Pokemon Solid.ttf
 
