@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:pokedex/core/app_errors.dart';
 import 'package:pokedex/models/pokemon_model.dart';
-import 'package:pokedex/models/pokemon_result_model.dart';
 import 'package:pokedex/repositories/poke_repository.dart';
 
 class PokeRepositoryImpl implements PokeRepository {
@@ -12,15 +11,16 @@ class PokeRepositoryImpl implements PokeRepository {
     try {
       final dio = Dio();
       final response = await dio.get(
-        'https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=$limit',
+        'https://pokeapi.co/api/v2/pokemon?offset=$offset&limit=$limit',
       );
-      final data = response.data['results'] as List;
-      final list =
-          data.map((pokemon) => PokemonResultModel.fromMap(pokemon)).toList();
+      final list = response.data['results'] as List;
+      final urls = list.map((data) => data['url']).toList();
+
+      
 
       final pokemons = <PokemonModel>[];
-      for (var item in list) {
-        final pokemon = await fetchByUrl(item.url);
+      for (var item in urls) {
+        final pokemon = await fetchByUrl(item);
         pokemons.add(pokemon);
       }
       return Right(pokemons);

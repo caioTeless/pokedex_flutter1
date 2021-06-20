@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HorizontalBar extends StatelessWidget {
-  final String label;
-  final int value;
+  final String? label;
+  final int? value;
   final int maxValue;
   final Color backgroundColor;
-  final Color foregroundColor;
+  final Color? foregroundColor;
   final double height;
 
   const HorizontalBar({
-    Key key,
+    Key? key,
     this.label,
     this.value,
     this.foregroundColor,
@@ -30,7 +30,7 @@ class HorizontalBar extends StatelessWidget {
             child: Stack(
               children: [
                 _buildBar(color: backgroundColor, value: maxValue),
-                _buildBar(color: foregroundColor, value: value),
+                _buildBar(color: foregroundColor!, value: value!),
                 _buildBarText(),
               ],
             ),
@@ -43,7 +43,7 @@ class HorizontalBar extends StatelessWidget {
   _buildLabel() {
     return Expanded(
       child: Text(
-        label.toUpperCase(),
+        label!.toUpperCase(),
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -52,9 +52,9 @@ class HorizontalBar extends StatelessWidget {
     );
   }
 
-  _buildBar({Color color, int value = 0}) {
+  _buildBar({Color? color, required int value}) {
     return FractionallySizedBox(
-      widthFactor: value / maxValue,
+      widthFactor: (value / maxValue),
       child: Container(
         height: height,
         decoration: BoxDecoration(

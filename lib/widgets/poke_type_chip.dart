@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/helpers/poke_helper.dart';
+import 'package:pokedex/helpers/poke_type_helper.dart';
 
 class PokeTypeChip extends StatelessWidget {
-  final String type;
+  final String? type;
 
   const PokeTypeChip({
-    Key key,
+    Key? key,
     this.type,
   }) : super(key: key);
 
@@ -14,7 +14,7 @@ class PokeTypeChip extends StatelessWidget {
     return Chip(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       avatar: Text(
-        PokeHelper.getIcon(type),
+        PokeTypeHelper.getIcon(type!),
         style: TextStyle(
           fontFamily: 'PokeGoTypes',
           color: Colors.white,
@@ -23,14 +23,14 @@ class PokeTypeChip extends StatelessWidget {
         ),
       ),
       label: Text(
-        type,
+        type!,
         style: TextStyle(
           color: Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
       ),
-      backgroundColor: PokeHelper.getColor(type),
+      backgroundColor: PokeTypeHelper.getColor(type!),
     );
   }
 }

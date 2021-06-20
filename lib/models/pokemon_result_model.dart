@@ -1,6 +1,6 @@
 class PokemonResultModel {
-  final String name;
-  final String url;
+  final String? name;
+  final String? url;
 
   const PokemonResultModel({this.name, this.url});
 

@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: kAppTitle,
       theme: kAppTheme,
       home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

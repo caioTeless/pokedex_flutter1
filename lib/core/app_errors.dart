@@ -1,10 +1,10 @@
 abstract class Failure implements Exception {
-  final String message;
+  final String? message;
 
   Failure({this.message});
 
   @override
-  String toString() => message;
+  String toString() => message!;
 }
 
 class ApiError extends Failure {

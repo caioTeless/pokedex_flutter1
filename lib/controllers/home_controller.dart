@@ -11,7 +11,7 @@ class HomeController {
 
   int get length => pokemons.length;
 
-  Failure failure;
+  Failure? failure;
 
   int _offset = 0;
 
@@ -21,6 +21,11 @@ class HomeController {
     failure = null;
     final result = await _repository.fetch(offset: _offset, limit: limit);
     result.fold((l) => failure = l, (r) => pokemons.addAll(r));
+  }
+
+  Future<PokemonModel> filterPokemon(String name) async {
+    return await _repository
+        .fetchByUrl('https://pokeapi.co/api/v2/pokemon/?name=$name');
   }
 
   Future<void> next() async {

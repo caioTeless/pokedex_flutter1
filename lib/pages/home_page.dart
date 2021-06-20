@@ -13,6 +13,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _controller = HomeController(PokeRepositoryImpl());
+  bool searchBar = false;
+  List pokemons = [];
+  List filteredPokemons = [];
+
+  getPokemons() async {
+    var data = await _controller.fetch();
+    return data;
+  }
 
   @override
   void initState() {
@@ -22,17 +30,59 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _initialize() async {
     await _controller.fetch();
-    setState(() {});
+    getPokemons().then((data) {
+      setState(() {
+        pokemons = filteredPokemons = data;
+      });
+    });
+  }
+
+  void _filterPokemon(String name) {
+    setState(() {
+      filteredPokemons = _controller.pokemons
+          .where((element) =>
+              element.name.toLowerCase().contains(name.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          kAppTitle,
-          style: TextStyle(color: Colors.black, fontFamily: 'Pokemon')
-        ),
+        title: !searchBar
+            ? _buildText()
+            : TextField(
+                onChanged: (value) {
+                  _filterPokemon(value);
+                },
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  icon: Icon(Icons.search, color: Colors.black),
+                  hintText: 'Search pokemon',
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
+              ),
+        actions: <Widget>[
+          searchBar
+              ? IconButton(
+                  icon: Icon(Icons.cancel, color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      this.searchBar = false;
+                      filteredPokemons = pokemons;
+                    });
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Icons.search, color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      this.searchBar = true;
+                    });
+                  },
+                )
+        ],
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
@@ -66,5 +116,10 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  _buildText() {
+    return Text(kAppTitle,
+        style: TextStyle(color: Colors.black, fontFamily: 'Pokemon'));
   }
 }

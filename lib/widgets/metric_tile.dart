@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MetricTile extends StatelessWidget {
-  final String label;
-  final num value;
-  final String unit;
+  final String? label;
+  final num? value;
+  final String? unit;
 
   const MetricTile({
-    Key key,
+    Key? key,
     this.label,
     this.value,
     this.unit,
@@ -19,14 +19,14 @@ class MetricTile extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '${value.toStringAsFixed(2)} $unit',
+            '$value $unit',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
             ),
           ),
           SizedBox(height: 4.0),
-          Text(label),
+          Text(label!),
         ],
       ),
     );
