@@ -45,7 +45,7 @@ class HorizontalBar extends StatelessWidget {
       child: Text(
         label!.toUpperCase(),
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
       ),

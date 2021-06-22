@@ -50,8 +50,7 @@ class _DetailPageState extends State<DetailPage> {
             ),
             _buildMetrics(),
             _buildTypeChips(),
-            Padding(padding: const EdgeInsets.all(20)),
-            _buildGif(),
+            // _buildGif(),
             _buildStatistics(),
             Padding(padding: const EdgeInsets.all(10)),
           ],
@@ -60,11 +59,12 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  _buildGif(){
+  _buildGif() {
     return Container(
-      height: 80,
-      width: 80,
+      height: 30,
+      width: 30,
       child: Image.network(widget.pokemon!.gifUrl, fit: BoxFit.fitHeight),
+      margin: EdgeInsets.only(left: 10.0),
     );
   }
 
@@ -77,12 +77,18 @@ class _DetailPageState extends State<DetailPage> {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Divider(),
           ),
-          Text(
-            'Statistics',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Statistics',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              _buildGif(),
+            ],
           ),
           HorizontalBar(
             label: 'HP',
@@ -117,8 +123,8 @@ class _DetailPageState extends State<DetailPage> {
           HorizontalBar(
             label: 'SDEF',
             value: widget.pokemon!.specialDefense,
-            foregroundColor: 
-            PokeHelper.getColor(widget.pokemon!.type1).withOpacity(0.4),
+            foregroundColor:
+                PokeHelper.getColor(widget.pokemon!.type1).withOpacity(0.4),
           ),
           SizedBox(height: 5),
         ],
@@ -132,7 +138,9 @@ class _DetailPageState extends State<DetailPage> {
       children: [
         PokeTypeChip(type: widget.pokemon!.type1),
         widget.pokemon!.type2 != null ? SizedBox(width: 20) : SizedBox(),
-        widget.pokemon!.type2 != null ? PokeTypeChip(type: widget.pokemon!.type2): SizedBox(),
+        widget.pokemon!.type2 != null
+            ? PokeTypeChip(type: widget.pokemon!.type2)
+            : SizedBox(),
       ],
     );
   }
